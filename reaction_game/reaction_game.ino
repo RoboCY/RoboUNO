@@ -2,7 +2,7 @@
   Reaction Game
   Description:
   Hardware: RoboUNO (on-board NeoPixel strip connected to pin D8), buzzer on D9 and onboard buttons on D7, D6, D4, and D2
-  Library: Adafruit NeoPixel library
+  Library: Adafruit_NeoPixel, Adafruit_GFX, Adafruit_SSD1306
   Difficulty: XX/10
   Author: ROBO
   Date: September 2023
@@ -30,7 +30,6 @@
 #define BUTTON_D 2
 
 #define NOTE_C 523  // Frequency for note C in Hertz
-#define NOTE_D 587  // Frequency for note D in Hertz
 #define NOTE_F 698  // Frequency for note F in Hertz
 
 uint8_t activePixel = 0;  // Initialize the counter variable
