@@ -29,7 +29,7 @@ void blink() {
 
   // Turn random pixel on
   int randomPixel = random(NUM_PIXELS);
-  strip.setPixelColor(randomPixel, wheel(random(255))); // Set to red (you can change the color)
+  strip.setPixelColor(randomPixel, wheel(random(255))); // Set to random color from the wheel
   strip.show();
   delay(DELAY_MS);
 }
@@ -38,7 +38,7 @@ void blink() {
 void row() {
   for (int i = 0; i < NUM_PIXELS; i++) {
     // Turn on the current pixel
-    strip.setPixelColor(i, wheel(random(255))); // Set to red (you can change the color)
+    strip.setPixelColor(i, wheel(random(255))); // Set to random color from the wheel
     strip.show();
     delay(DELAY_MS);
 
