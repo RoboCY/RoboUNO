@@ -1,7 +1,7 @@
 /*
   Screen Counter
   Description:
-  Hardware: RoboUNO (on-board NeoPixel strip connected to pin D8), buzzer on D9 and onboard buttons on D7, D6, D4, and D2
+  Hardware: RoboUNO, onboard buttons on D7, D6, D4, and D2, OLED Display, onboard buzzer
   Library: Adafruit_GFX, Adafruit_SSD1306
   Difficulty: XX/10
   Author: ROBO
