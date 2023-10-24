@@ -5,7 +5,7 @@
   Library: Adafruit_GFX, Adafruit_SSD1306
   Difficulty: XX/10
   Author: ROBO
-  Date: September 2023
+  Date: October 2023
 */
 
 #include <Wire.h>
@@ -24,7 +24,7 @@
 #define BUZZER_PIN 9 // Buzzer pin, connected to pin D9
 #define BUZZER_FREQ 1000
 
-#define TEMPERATURE_MAX 60
+#define TEMPERATURE_MAX 90
 #define TEMPERATURE_MIN 30
 #define TEMPERATURE_STEP 10
 
@@ -33,13 +33,16 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT);
 int currentTemperature = TEMPERATURE_MIN;
 bool isWhites = true;
 bool isRunning = false;
+unsigned long washingStartTime = 0;
 unsigned long cycleStartTime = 0;
-const unsigned long CYCLE_DURATION = 20000; // 20 seconds
+const unsigned long CYCLE_DURATION = 5000; // 5 seconds per step
+enum WashCycleStep { PRE_WASH, WASH, SPIN, RINSE };
+WashCycleStep currentStep = PRE_WASH;
 
 void setup() {
   Serial.begin(9600);  // initialize serial communication at 9600 bits per second
   Serial.println("Washing Machine!");
-  // Initialize with the I2C address of your OLED screen
+  // Initialize the OLED screen
   if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
     for (;;)
@@ -51,7 +54,11 @@ void setup() {
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
-  display.println("Washing Machine");
+  display.print("A/C: temp up/down");
+  display.setCursor(0, 10);
+  display.print("D: toggle mode");
+  display.setCursor(0, 20);
+  display.print("B: start");
   display.display();
   pinMode(BUTTON_TEMP_UP, INPUT_PULLUP);
   pinMode(BUTTON_TEMP_DOWN, INPUT_PULLUP);
@@ -62,19 +69,55 @@ void setup() {
 void loop() {
   if (!isRunning) {
     handleButtonPress();
-  } else {
-    unsigned long elapsedTime = millis() - cycleStartTime;
-    if (elapsedTime >= CYCLE_DURATION) {
-      isRunning = false;
+  } 
+  else {
+    unsigned long cycleElapsedTime = millis() - cycleStartTime;
+    unsigned long washingElapsedTime = millis() - washingStartTime;
+    if (cycleElapsedTime >= CYCLE_DURATION) {
+      // Switch to the next cycle step
+      switch (currentStep) {
+        case PRE_WASH:
+          currentStep = WASH;
+          break;
+        case WASH:
+          currentStep = SPIN;
+          break;
+        case SPIN:
+          currentStep = RINSE;
+          break;
+        case RINSE:
+          // Washing is complete
+          isRunning = false;
+          display.clearDisplay();
+          display.setCursor(0, 0);
+          display.println("Washing Done");
+          display.display();
+          activateAlarm();
+          break;
+      }
+      // Reset the timer for the next step
+      cycleStartTime = millis();
+    } 
+    else {
+      int remainingTime = ((CYCLE_DURATION * 4) - washingElapsedTime) / 1000;
       display.clearDisplay();
       display.setCursor(0, 0);
-      display.println("Washing Done");
-      display.display();
-      activateAlarm();
-    } else {
-      int remainingTime = (CYCLE_DURATION - elapsedTime) / 1000;
-      display.clearDisplay();
-      display.setCursor(0, 0);
+      display.print("Step: ");
+      switch (currentStep) {
+        case PRE_WASH:
+          display.println("Pre-wash");
+          break;
+        case WASH:
+          display.println("Washing");
+          break;
+        case SPIN:
+          display.println("Spinning");
+          break;
+        case RINSE:
+          display.println("Rinsing");
+          break;
+      }
+      display.setCursor(0, 10);
       display.print("Time Remaining: ");
       display.print(remainingTime);
       display.print("s");
@@ -115,14 +158,16 @@ void updateDisplay() {
   display.print(currentTemperature);
   display.print(" C");
   display.setCursor(0, 10);
-  display.print("Type: ");
+  display.print("Mode: ");
   display.print(isWhites ? "Whites" : "Colored");
   display.display();
 }
 
 void startWashingCycle() {
   isRunning = true;
+  washingStartTime = millis();
   cycleStartTime = millis();
+  currentStep = PRE_WASH;
   updateDisplay();
 }
 
