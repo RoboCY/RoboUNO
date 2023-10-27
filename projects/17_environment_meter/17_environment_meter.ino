@@ -42,10 +42,10 @@ void setup() {
     display.setTextSize(1);
     display.display();
 
-  if (!bme.begin()) {
-    Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
-    for(;;); // Don't proceed, loop forever
-  }
+    if (!bme.begin()) {
+        Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
+        for(;;); // Don't proceed, loop forever
+    }
       
 }
 
