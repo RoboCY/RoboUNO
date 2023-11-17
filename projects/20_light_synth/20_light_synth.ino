@@ -35,8 +35,6 @@ int time = 100;
 long lightIntensity = 0; // Initialize the light intensity variable
 int lightToggleThreshold = 20;
 
-int userBrightness = 60;
-
 // Define the button pins
 #define BUTTON_A 7
 #define BUTTON_B 6
