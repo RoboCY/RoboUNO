@@ -1,0 +1,9 @@
+# Project #08: Mood Light
+
+This sketch controls a strip of NeoPixels (individually addressable RGB LEDs) and uses buttons to adjust the brightness and color of the LEDs.
+
+The `changeBrightness(int b)` function is used to adjust the brightness of the NeoPixels. It takes an integer `b` as an argument, which represents the desired brightness level. The `pixels.setBrightness(b)` line sets the brightness of all pixels in the strip to the value of `b`. The `pixels.show()` line then updates the actual LEDs to reflect this new brightness setting.
+
+The `changeColor(uint32_t degrees)` function is used to change the color of the NeoPixels. It takes an argument `degrees` which is used to calculate the new color. The function iterates over each pixel in the strip with the `for` loop, and sets its color using the `pixels.setPixelColor(i, degToColor(degrees))` line. The `degToColor(degrees)` function is called to convert the `degrees` value into a color that the NeoPixels can understand. After all pixels have been updated, `pixels.show()` is called to update the actual LEDs.
+
+The `degToColor(int deg)` function is used to convert a degree value into a color. The degree value is first mapped from a range of 0-255 to 0-191. This mapped degree value is then used to calculate the red, green, and blue components of the color. This is done using a series of `if` and `else if` statements that check ranges of the degree value and calculate the color components accordingly. The `pixels.Color()` function is used to create a color from the calculated red, green, and blue components. This color is then returned by the function.

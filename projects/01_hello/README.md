@@ -1,3 +1,5 @@
+# Project #01: Hello World!
+
 First off, the purpose of this sketch is to print a message "Hello World!" along with a counter value to the serial monitor once every second.
 
 The sketch begins with a multi-line comment that provides some metadata about the sketch, such as its description, the hardware it's intended for, its difficulty level, the author, and the date it was written. The global variable `counter` is declared and initialized to 0. This variable is used to keep track of how many times the main loop of the program has executed.

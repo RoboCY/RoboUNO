@@ -1,0 +1,7 @@
+# Project #06: Binary Counter
+
+This sketch is to create a binary counter that uses a NeoPixel LED strip to display the binary representation of a number. The number is incremented or decremented based on button presses, and a buzzer beeps with each change.
+
+The `buzzerBeep` function is used to make the buzzer beep. The `tone` function is called with the `BUZZER_PIN` and `BUZZER_FREQ` constants, which starts a square wave of the specified frequency on the buzzer pin. The `delay` function then pauses the program for 200 milliseconds, during which the buzzer continues to beep. After the delay, the `noTone` function is called on the `BUZZER_PIN`, which stops the square wave and silences the buzzer.
+
+The `displayBinary` function is used to display a binary representation of a number on the NeoPixel strip. It takes an integer number as an argument. The function loops over each bit in the number, starting from the least significant bit (right-most in binary representation). For each bit, it uses a bitwise shift (`>>`) and bitwise AND (`&`) operation to extract the value of the bit. If the bit value is 1, it sets the corresponding pixel on the NeoPixel strip to the `onColor` (green in this case). If the bit value is 0, it sets the pixel to the `offColor` (off or black in this case). After setting the colors of all the pixels, it calls `pixels.show()` to update the NeoPixel strip with the new colors that represent the counter's integer value in binary format.

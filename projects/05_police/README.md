@@ -1,0 +1,9 @@
+# Project #05: Police System
+
+This sketch is designed to simulate a police siren using a RoboUNO board with a NeoPixel strip and a buzzer. The NeoPixel strip is used to create the flashing red and blue lights, while the buzzer is used to create the siren sound.
+
+The code begins by including the Adafruit NeoPixel library, which is used to control the NeoPixel strip. It then defines several constants and variables. `BUZZER_PIN` and `PIXELS_PIN` are the pins to which the buzzer and NeoPixel strip are connected. `NUMPIXELS` is the number of pixels on the strip. `strip` is an instance of the `Adafruit_NeoPixel` class, which represents the NeoPixel strip. `redColor` and `blueColor` are the colors that will be used on the strip, defined using RGB values. `sirenTones` is an array of musical notes that will be played by the buzzer to create the siren sound, and `sirenDuration` is the duration of each note.
+
+In the `setup` function, the code initializes serial communication, starts the NeoPixel strip, and sets the buzzer pin as an output. The `loop` function repeatedly calls the `policeSiren` function, which creates the siren effect.
+
+In the `policeSiren` function, the code loops twice. In each iteration, it plays one of the siren tones on the buzzer and sets the colors of the pixels on the strip. If the current iteration is even, it sets the colors to red, blue, red; if it's odd, it sets them to blue, red, blue. After setting the colors, it shows them on the strip, waits for the duration of the siren tone, stops the tone, and then waits again for the same duration. This creates the effect of the siren sound and lights alternating on and off.

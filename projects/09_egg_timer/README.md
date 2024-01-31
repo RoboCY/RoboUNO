@@ -1,0 +1,9 @@
+# Project #09: Egg Timer
+
+This is a simple egg timer program that uses a NeoPixel LED strip, a buzzer, and four buttons for user interaction. The user can select between three cooking times for soft, medium, and hard-boiled eggs using the buttons. The selected cooking time is indicated by lighting up a specific LED on the NeoPixel strip. When the cooking time is over, the buzzer sounds an alarm.
+
+The `startTimer()` function is used to start the egg timer. It first turns off all the LEDs on the NeoPixel strip by calling the `fillPixels(offColor)` function with the `offColor` (which is defined as black). Then it lights up the LED corresponding to the selected cooking time by calling `pixels.setPixelColor(2 - selectedOption, greenColor)`. The `2 - selectedOption` calculation is used to light up the LED from top to bottom (assuming the strip is vertically oriented) depending on the selected option. The `pixels.show()` function is then called to update the actual LEDs. The `endTime` is calculated by adding the current time (`millis()`) to the selected cooking time (converted to milliseconds). The `isCooking` flag is set to `true` and a message is printed to the serial monitor.
+
+The `activateAlarm()` function is used to sound the alarm when the cooking time is over. It does this by blinking the LEDs on the NeoPixel strip and playing a tone on the buzzer. This is done in a loop three times. The `tone(BUZZER_PIN, BUZZER_FREQ)` function is used to start the buzzer and `noTone(BUZZER_PIN)` is used to stop it. The `delay(500)` function is used to create a half-second delay between the on and off states of the LEDs and the buzzer.
+
+The `fillPixels(uint32_t color)` function is a helper function used to set all the LEDs on the NeoPixel strip to a specific color. It does this by looping over all the LEDs and calling `pixels.setPixelColor(i, color)` for each one. After setting the color for all the LEDs, it calls `pixels.show()` to update the actual LEDs.

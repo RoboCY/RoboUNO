@@ -1,0 +1,9 @@
+# Project #02: Buzzer
+
+This code is a simple sketch for Arduino and it's used to control a buzzer. The buzzer is connected to a digital pin 9 on the Arduino board and it's turned on and off in a loop, creating a buzzing sound at a specific frequency.
+
+At the top of the code, there are four `#define` directives. These are used to define constants that will be used throughout the code. `BUZZER_PIN` is set to 9, which means the buzzer is connected to digital pin 9 on the Arduino board. `BUZZER_FREQ` is set to 1000, which is the frequency in Hertz at which the buzzer will buzz. `BUZZ_DURATION` is set to 500, which is the duration in milliseconds that the buzzer will stay on each time it's activated. `PAUSE_DURATION` is set to 1000, which is the duration in milliseconds that the buzzer will stay off between buzzes.
+
+The `setup()` function is a special function in Arduino that is run once when the program starts. In this function, the `pinMode()` function is used to set `BUZZER_PIN` as an output pin. This means that the Arduino will send signals out through this pin, rather than receiving signals through it.
+
+The `loop()` function is another special function in Arduino that is run repeatedly after `setup()` finishes. In this function, the `tone()` function is used to activate the buzzer. It takes two arguments: the pin that the buzzer is connected to, and the frequency at which to buzz. After the `tone()` function, the `delay()` function is used to pause the program for `BUZZ_DURATION` milliseconds. Then, the `noTone()` function is used to turn off the buzzer, and another `delay()` function is used to pause the program for `PAUSE_DURATION` milliseconds before the next buzz. This cycle of buzzing and pausing is repeated indefinitely.
