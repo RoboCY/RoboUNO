@@ -20,9 +20,6 @@
 // Initialize the display
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire);
 
-int counter = 0;  // Initialize the counter variable
-
-
 void setup() {
   Serial.begin(9600);  // initialize serial communication at 9600 bits per second
   Serial.println("Screen Hello!");
